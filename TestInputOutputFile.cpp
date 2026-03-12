@@ -33,11 +33,11 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	//Point p1;
+	/*//Point p1;
 	//Point p2(1, 5, 7);
 	//Point p3(2, 8, 12);
 	//Point p4(8, 12, 0);
-	Point point(8, 0, 4);
+	Point point(7, 66, 31);
 
 	//p1.Print();
 	//p2.Print();
@@ -58,6 +58,67 @@ int main()
 	}
 
 	fout.close();
+	*/
+
+
+	/*std::ifstream fin;
+	fin.open("test.txt");
+
+	if (!fin.is_open())
+	{
+		std::cout << "Не удалось открыть файл" << std::endl;
+	}
+	else
+	{
+		std::cout << "Файл открыт" << std::endl;
+		Point buffer;
+
+		while (fin.read((char*)&buffer, sizeof(Point)))
+		{
+			buffer.Print();
+		}
+	}
+
+	fin.close();*/
+	
+
+	std::string path = "test2.txt";
+
+	std::fstream fs;
+	fs.open(path, std::fstream::in | std::fstream::out | std::fstream::app);
+
+	if (!fs.is_open())
+	{
+		std::cout << "Файл не удалось открыть" << std::endl;
+	}
+	else
+	{
+		std::string buf;
+		int choice;
+		std::cout << "Файл открыт" << std::endl;
+		std::cout << "Введите 1 для записи сообщения в файл: " << std::endl;
+		std::cout << "Введите 2 для чтения всех сообщений из файла: " << std::endl;
+		std::cin >> choice;
+
+		if (choice == 1)
+		{
+			std::cout << "Введите сообщение для записи: ";
+			std::cin >> buf;
+			fs << buf << "\n";
+		}
+
+		if (choice == 2)
+		{
+			while (!fs.eof())
+			{
+				buf = "";
+				fs >> buf;
+				std::cout << buf << std::endl;
+			}
+		}
+	}
+
+	fs.close();
 
 	return 0;
 }
