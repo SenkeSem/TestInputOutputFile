@@ -21,12 +21,25 @@ public:
 		this->y = y;
 		this->z = z;
 	}
-	
-	void Print()
-	{
-		std::cout << x << "\t" << y << "\t" << z << std::endl;
-	}
+
+	//void Print()
+	//{
+	//	std::cout << x << "\t" << y << "\t" << z << std::endl;
+	//}
 };
+
+std::ostream& operator<< (std::ostream& os, const Point& point)
+{
+	os << point.x << " " << point.y << " " << point.z << " " << std::endl;
+
+	return os;
+}
+
+std::istream& operator>> (std::istream& is, Point& point)
+{
+	is >> point.x >> point.y >> point.z;
+	return is;
+}
 
 int main()
 {
@@ -60,7 +73,6 @@ int main()
 	fout.close();
 	*/
 
-
 	/*std::ifstream fin;
 	fin.open("test.txt");
 
@@ -81,7 +93,7 @@ int main()
 
 	fin.close();*/
 	
-
+	/*
 	std::string path = "test2.txt";
 
 	std::fstream fs;
@@ -115,6 +127,35 @@ int main()
 				fs >> buf;
 				std::cout << buf << std::endl;
 			}
+		}
+	}
+
+	fs.close();
+	*/
+
+	//Point point(77, 17, 63);
+	std::string path = "test3.txt";
+
+	std::fstream fs;
+	fs.open(path, std::fstream::app | std::fstream::out | std::fstream::in);
+
+	if (!fs.is_open())
+	{
+		std::cout << "Не удалось открыть файл!" << std::endl;
+	}
+	else
+	{
+		std::cout << "Файл открыт!" << std::endl;
+		//fs << point;
+
+		while (true)
+		{
+			Point pnt_buf;
+			fs >> pnt_buf;
+			if (fs.eof())
+				break;
+
+			std::cout << pnt_buf;
 		}
 	}
 

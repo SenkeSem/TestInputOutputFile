@@ -2,3 +2,4 @@ I
 русский
 message
 hello_world!
+салют,питер
