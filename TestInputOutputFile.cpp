@@ -41,6 +41,20 @@ std::istream& operator>> (std::istream& is, Point& point)
 	return is;
 }
 
+void Foo(int value)
+{
+	if (value < 0)
+		throw value;
+
+	if (value == 13)
+	{
+		std::string ex = "Это же 13!!! Такие данные запрещено вводить. Удали.";
+		throw ex;
+	}
+
+	std::cout << "Переменная = " << value << std::endl;
+}
+
 int main()
 {
 	SetConsoleCP(1251);
@@ -133,33 +147,39 @@ int main()
 	fs.close();
 	*/
 
-	//Point point(77, 17, 63);
+	/*
 	std::string path = "test3.txt";
-
 	std::fstream fs;
-	fs.open(path, std::fstream::app | std::fstream::out | std::fstream::in);
+	fs.exceptions(std::fstream::badbit | std::fstream::failbit);
 
-	if (!fs.is_open())
+	try
 	{
-		std::cout << "Не удалось открыть файл!" << std::endl;
+		std::cout << "попытка открыть файл" << std::endl;
+		fs.open(path);
+
+
+		std::cout << "файл успешно открыт" << std::endl;
 	}
-	else
+	catch (const std::ifstream::failure& ex)
 	{
-		std::cout << "Файл открыт!" << std::endl;
-		//fs << point;
-
-		while (true)
-		{
-			Point pnt_buf;
-			fs >> pnt_buf;
-			if (fs.eof())
-				break;
-
-			std::cout << pnt_buf;
-		}
+		std::cout << ex.what() << std::endl;
+		std::cout << ex.code() << std::endl;
+		std::cout << "ошибка открытия файла" << std::endl;
 	}
+	*/
 
-	fs.close();
+	try
+	{
+		Foo(13);
+	}
+	catch (const int value) 
+	{
+		std::cout << "Случилась ошибка из-за переменной " << value << std::endl;
+	}
+	catch (const std::string& ex)
+	{
+		std::cout << ex << std::endl;
+	}
 
 	return 0;
 }
